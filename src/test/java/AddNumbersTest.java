@@ -46,9 +46,14 @@ public class AddNumbersTest {
         assertThat(add("1,-1,2,-1"), is(1));
     }
 
+    @Test
+    public void addNumber_withNewlineSeparator_returnsSum() {
+        assertThat(add("1\n2"), is(3));
+    }
+
     private int add(final String numbersAsString) {
-        if(numbersAsString.matches("\\-?\\d+(,\\-?\\d+)*")){
-            return add(parseToIntegers(numbersAsString));
+        if(numbersAsString.matches("\\-?\\d+([,\\n]\\-?\\d+)*")){
+            return add(parseToIntegers(numbersAsString.replace("\n", ",")));
         } else {
             return 0;
         }
