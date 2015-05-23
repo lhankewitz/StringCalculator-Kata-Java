@@ -1,7 +1,11 @@
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -51,12 +55,36 @@ public class AddNumbersTest {
         assertThat(add("1\n2,3"), is(6));
     }
 
+    @Test
+    @Ignore("Refactor to delimiter as parameter first")
+    public void addNumbers_acceptsDelimiterAnnotation() {
+        assertThat(add("//;\n1;2"), is(3));
+    }
+
     private int add(final String numbersAsString) {
-        if(numbersAsString.matches("\\-?\\d+([,\\n]\\-?\\d+)*")){
-            return add(parseToIntegers(numbersAsString.replace("\n", ",")));
+        Optional<String> delimiter = getDelimiter(numbersAsString);
+        if(delimiter.isPresent()){
+            return 0;
+        } else if(matchNumber(numbersAsString)){
+            final String numbersWithUnifiedDelimiter = numbersAsString.replace("\n", ",");
+            return add(parseToIntegers(numbersWithUnifiedDelimiter));
         } else {
             return 0;
         }
+    }
+
+    private Optional<String> getDelimiter(final String numbersAsString) {
+        final Pattern delimiterPattern = Pattern.compile("//(.)\\n.*");
+        final Matcher matcher = delimiterPattern.matcher(numbersAsString);
+        String delimiter = null;
+        if(matcher.matches()){
+            delimiter = matcher.group(1);
+        }
+        return Optional.ofNullable(delimiter);
+    }
+
+    private boolean matchNumber(final String numbersAsString) {
+        return numbersAsString.matches("\\-?\\d+([,\\n]\\-?\\d+)*");
     }
 
     private List<Integer> parseToIntegers(final String numbersAsString) {
