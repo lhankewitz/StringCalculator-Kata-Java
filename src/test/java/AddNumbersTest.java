@@ -48,7 +48,7 @@ public class AddNumbersTest {
 
     @Test
     public void addNumber_withNewlineSeparator_returnsSum() {
-        assertThat(add("1\n2"), is(3));
+        assertThat(add("1\n2,3"), is(6));
     }
 
     private int add(final String numbersAsString) {
