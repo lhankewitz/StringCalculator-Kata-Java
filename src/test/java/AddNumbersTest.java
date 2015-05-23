@@ -56,7 +56,6 @@ public class AddNumbersTest {
     }
 
     @Test
-    @Ignore("Refactor to delimiter as parameter first")
     public void addNumbers_acceptsDelimiterAnnotation() {
         assertThat(add("//;\n1;2"), is(3));
     }
@@ -64,7 +63,9 @@ public class AddNumbersTest {
     private int add(final String numbersAsString) {
         Optional<String> delimiter = getDelimiter(numbersAsString);
         if(delimiter.isPresent()){
-            return 0;
+            String numberStringWithoutPrefix = numbersAsString.substring(4);
+            numberStringWithoutPrefix = numberStringWithoutPrefix.replace(delimiter.get(), ",");
+            return add(parseToIntegers(numberStringWithoutPrefix));
         } else if(matchNumber(numbersAsString, ";")){
             final String numbersWithUnifiedDelimiter = numbersAsString.replace("\n", ",");
             return add(parseToIntegers(numbersWithUnifiedDelimiter));
