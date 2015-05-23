@@ -41,10 +41,15 @@ public class AddNumbersTest {
         assertThat(add("-1"), is(-1));
     }
 
+    @Test
+    public void addingNumbers_includingSeveralNegativeNumbers_returnSum() {
+        assertThat(add("1,-1,2,-1"), is(1));
+    }
+
     private int add(final String numbersAsString) {
         if(numbersAsString.matches("\\-?\\d+")){
             return Integer.valueOf(numbersAsString);
-        } else if(numbersAsString.matches("\\d+(,\\d+)+")){
+        } else if(numbersAsString.matches("\\-?\\d+(,\\-?\\d+)+")){
             return add(parseToIntegers(numbersAsString));
         } else{
             return 0;
