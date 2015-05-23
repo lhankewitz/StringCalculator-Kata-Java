@@ -36,8 +36,13 @@ public class AddNumbersTest {
         assertThat(add("1,2,3,4,5,6,7,8,9,10"), is(55) );
     }
 
+    @Test
+    public void addingNumber_includingNegariveNumbers_returnSum() {
+        assertThat(add("-1"), is(-1));
+    }
+
     private int add(final String numbersAsString) {
-        if(numbersAsString.matches("\\d+")){
+        if(numbersAsString.matches("\\-?\\d+")){
             return Integer.valueOf(numbersAsString);
         } else if(numbersAsString.matches("\\d+(,\\d+)+")){
             return add(parseToIntegers(numbersAsString));
