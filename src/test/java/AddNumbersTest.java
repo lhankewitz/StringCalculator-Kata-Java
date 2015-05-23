@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class AddNumbersTest {
 
     @Test
     public void addNumber_forManyNumbers_returnSum() {
-        assertThat(add("1,2,3,4,5,6,7,8,9,10"), is(55) );
+        assertThat(add("1,2,3,4,5,6,7,8,9,10"), is(55));
     }
 
     @Test
@@ -62,11 +61,13 @@ public class AddNumbersTest {
 
     private int add(final String numbersAsString) {
         Optional<String> delimiter = getDelimiter(numbersAsString);
-        if(delimiter.isPresent()){
+        if (delimiter.isPresent()) {
             String numberStringWithoutPrefix = numbersAsString.substring(4);
-            numberStringWithoutPrefix = numberStringWithoutPrefix.replace(delimiter.get(), ",");
-            return add(parseToIntegers(numberStringWithoutPrefix));
-        } else if(matchNumber(numbersAsString, ";")){
+            if (matchNumber(numberStringWithoutPrefix, delimiter.get())) {
+                numberStringWithoutPrefix = numberStringWithoutPrefix.replace(delimiter.get(), ",");
+                return add(parseToIntegers(numberStringWithoutPrefix));
+            } else return 0;
+        } else if (matchNumber(numbersAsString, ";")) {
             final String numbersWithUnifiedDelimiter = numbersAsString.replace("\n", ",");
             return add(parseToIntegers(numbersWithUnifiedDelimiter));
         } else {
@@ -78,7 +79,7 @@ public class AddNumbersTest {
         final Pattern delimiterPattern = Pattern.compile("//(.)\\n.*");
         final Matcher matcher = delimiterPattern.matcher(numbersAsString);
         String delimiter = null;
-        if(matcher.matches()){
+        if (matcher.matches()) {
             delimiter = matcher.group(1);
         }
         return Optional.ofNullable(delimiter);
