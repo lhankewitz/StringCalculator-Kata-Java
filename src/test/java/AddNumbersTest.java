@@ -65,7 +65,7 @@ public class AddNumbersTest {
         Optional<String> delimiter = getDelimiter(numbersAsString);
         if(delimiter.isPresent()){
             return 0;
-        } else if(matchNumber(numbersAsString)){
+        } else if(matchNumber(numbersAsString, ";")){
             final String numbersWithUnifiedDelimiter = numbersAsString.replace("\n", ",");
             return add(parseToIntegers(numbersWithUnifiedDelimiter));
         } else {
@@ -83,8 +83,8 @@ public class AddNumbersTest {
         return Optional.ofNullable(delimiter);
     }
 
-    private boolean matchNumber(final String numbersAsString) {
-        return numbersAsString.matches("\\-?\\d+([,\\n]\\-?\\d+)*");
+    private boolean matchNumber(final String numbersAsString, final String delimiter) {
+        return numbersAsString.matches("\\-?\\d+([" + delimiter + ";,\\n]\\-?\\d+)*");
     }
 
     private List<Integer> parseToIntegers(final String numbersAsString) {
