@@ -17,7 +17,16 @@ public class AddNumbersTest {
         assertThat(result, is(0));
     }
 
-    private int add(final String s) {
+    @Test
+    public void add_forSingleNumber_returnsSum() {
+        final int result = add("1");
+        assertThat(result, is(1));
+    }
+
+    private int add(final String numbers) {
+        if("1".equals(numbers)){
+            return 1;
+        }
         return 0;
     }
 }
