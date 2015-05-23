@@ -13,14 +13,12 @@ public class AddNumbersTest {
 
     @Test
     public void add_ForEmptyInput_returns_0() {
-        final int result = add("");
-        assertThat(result, is(0));
+        assertThat(add(""), is(0));
     }
 
     @Test
     public void add_forSingleNumber_returnsSum() {
-        final int result = add("1");
-        assertThat(result, is(1));
+        assertThat(add("1"), is(1));
     }
 
     @Test
