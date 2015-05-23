@@ -35,16 +35,27 @@ public class AddNumbersTest {
         if(numbersAsString.matches("\\d+")){
             return Integer.valueOf(numbersAsString);
         } else if(numbersAsString.matches("\\d+,\\d+")){
-            final String[] singleNumbers = numbersAsString.split(",");
-            final List<Integer> numbers = getAsIntegers(singleNumbers);
-            Integer sum = 0;
-            for (Integer number : numbers) {
-                sum += number;
-            }
-            return sum;
+            return add(parseToIntegers(numbersAsString));
         } else{
             return 0;
         }
+    }
+
+    private List<Integer> parseToIntegers(final String numbersAsString) {
+        final String[] singleNumbers = extractSingleNumber(numbersAsString);
+        return getAsIntegers(singleNumbers);
+    }
+
+    private String[] extractSingleNumber(final String numbersAsString) {
+        return numbersAsString.split(",");
+    }
+
+    private Integer add(final List<Integer> numbers) {
+        Integer sum = 0;
+        for (Integer number : numbers) {
+            sum += number;
+        }
+        return sum;
     }
 
     private List<Integer> getAsIntegers(final String[] singleNumbers) {
