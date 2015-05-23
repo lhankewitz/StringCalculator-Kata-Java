@@ -19,6 +19,7 @@ public class AddNumbersTest {
     @Test
     public void add_forSingleNumber_returnsSum() {
         assertThat(add("1"), is(1));
+        assertThat(add("2"), is(2));
     }
 
     @Test
@@ -27,11 +28,12 @@ public class AddNumbersTest {
     }
 
     private int add(final String numbers) {
-        if("1,2".equals(numbers)){
+        if(numbers.matches("\\d+")){
+            return Integer.valueOf(numbers);
+        } else if("1,2".equals(numbers)){
             return 3;
-        } else if("1".equals(numbers)){
-            return 1;
+        } else{
+            return 0;
         }
-        return 0;
     }
 }
