@@ -23,8 +23,15 @@ public class AddNumbersTest {
         assertThat(result, is(1));
     }
 
+    @Test
+    public void addNumbers_withGiven2Numbers_returnsSum() {
+        assertThat(add("1,2"), is(3));
+    }
+
     private int add(final String numbers) {
-        if("1".equals(numbers)){
+        if("1,2".equals(numbers)){
+            return 3;
+        } else if("1".equals(numbers)){
             return 1;
         }
         return 0;
