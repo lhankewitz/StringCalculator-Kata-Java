@@ -51,15 +51,11 @@ public class AddNumbersTest {
     }
 
     private Integer add(final List<Integer> numbers) {
-        Integer sum = 0;
-        for (Integer number : numbers) {
-            sum += number;
-        }
-        return sum;
+        return numbers.stream().reduce(0, Integer::sum);
     }
 
     private List<Integer> getAsIntegers(final String[] singleNumbers) {
-        List<Integer> numbers = new ArrayList<Integer>();
+        List<Integer> numbers = new ArrayList<>();
         for (String singleNumber : singleNumbers) {
             numbers.add(Integer.valueOf(singleNumber));
         }
