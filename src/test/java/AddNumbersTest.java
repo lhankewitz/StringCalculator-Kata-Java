@@ -47,10 +47,8 @@ public class AddNumbersTest {
     }
 
     private int add(final String numbersAsString) {
-        if(numbersAsString.matches("\\-?\\d+(,\\-?\\d+)+")){
+        if(numbersAsString.matches("\\-?\\d+(,\\-?\\d+)*")){
             return add(parseToIntegers(numbersAsString));
-        } else if(numbersAsString.matches("\\-?\\d+")){
-            return Integer.valueOf(numbersAsString);
         } else {
             return 0;
         }
