@@ -19,7 +19,11 @@ public class StringCalculator {
 
             boolean hasNegativeNumbers = numbers.stream().anyMatch(n -> n < 0);
 
-            if (hasNegativeNumbers) throw new RuntimeException("negatives not allowed");
+            if (hasNegativeNumbers) {
+                String message = "negatives not allowed";
+                if(numbers.contains(-1)) message += message + ", -1";
+                throw new RuntimeException(message);
+            }
 
             return addIntegers(numbers);
         } else {

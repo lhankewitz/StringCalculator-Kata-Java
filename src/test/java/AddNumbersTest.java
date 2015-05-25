@@ -61,4 +61,16 @@ public class AddNumbersTest {
         }
     }
 
+    @Test
+    public void addNumbers_WithNegativeNumber_throwsExceptionWithNegativeNumbers() {
+        final String result;
+        try {
+            stringCalculator.addIntegers("-1");
+            fail("Negative numbers then exception is expected");
+        } catch (Exception e) {
+            result = e.getMessage();
+            assertThat(result, containsString("-1"));
+        }
+    }
+
 }
