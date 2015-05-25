@@ -13,16 +13,17 @@ public class StringCalculator {
         Optional<String> delimiter = getDelimiter(numbersAsString);
         String numberStringWithoutPrefix = getNumberStringWithoutPrefix(numbersAsString, delimiter);
 
-        if (matchNumber(numberStringWithoutPrefix, delimiter.orElseGet(() -> DEFAULT_DELIMITER))) {
-            List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiter, delimiter.orElseGet(() -> DEFAULT_DELIMITER));
+        String delimiterString = delimiter.orElseGet(() -> DEFAULT_DELIMITER);
+        if (matchNumber(numberStringWithoutPrefix, delimiterString)) {
+            List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiterString);
             return addIntegers(numbers);
         } else {
             return 0;
         }
     }
 
-    private List<Integer> extractNumbers(String numberStringWithoutPrefix, final Optional<String> delimiterOld, final String s) {
-        numberStringWithoutPrefix = normalizeDelimiter(numberStringWithoutPrefix, s);
+    private List<Integer> extractNumbers(String numberStringWithoutPrefix, final String delimiter) {
+        numberStringWithoutPrefix = normalizeDelimiter(numberStringWithoutPrefix, delimiter);
         return parseToIntegers(numberStringWithoutPrefix);
     }
 
