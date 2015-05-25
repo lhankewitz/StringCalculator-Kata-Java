@@ -20,8 +20,7 @@ public class StringCalculator {
 
             validateNotNegativeNumbers(numbers);
 
-            Integer integer = addIntegers(numbers);
-            return integer % 1000;
+            return addIntegers(numbers);
         } else {
             return 0;
         }
@@ -91,7 +90,7 @@ public class StringCalculator {
     }
 
     private Integer addIntegers(final List<Integer> numbers) {
-        return numbers.stream().reduce(0, Integer::sum);
+        return numbers.stream().filter(n -> n <= 1000).reduce(0, Integer::sum);
     }
 
     private List<Integer> getAsIntegers(final String[] singleNumbers) {
