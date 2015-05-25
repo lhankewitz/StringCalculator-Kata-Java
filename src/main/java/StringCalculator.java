@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class StringCalculator {
     private static final int DELIMITER_ANNOTATION_LENGTH = 4;
     private static final String DEFAULT_DELIMITER = ";";
+    private static final int SINGLE_NUMBER_LIMIT = 1000;
 
 
     int addIntegers(final String numbersAsString) {
@@ -90,7 +91,7 @@ public class StringCalculator {
     }
 
     private Integer addIntegers(final List<Integer> numbers) {
-        return numbers.stream().filter(n -> n <= 1000).reduce(0, Integer::sum);
+        return numbers.stream().filter(n -> n <= SINGLE_NUMBER_LIMIT).reduce(0, Integer::sum);
     }
 
     private List<Integer> getAsIntegers(final String[] singleNumbers) {
