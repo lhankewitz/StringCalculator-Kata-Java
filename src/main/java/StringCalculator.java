@@ -16,6 +16,11 @@ public class StringCalculator {
         String delimiterString = delimiter.orElseGet(() -> DEFAULT_DELIMITER);
         if (matchNumber(numberStringWithoutPrefix, delimiterString)) {
             List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiterString);
+
+            boolean hasNegativeNumbers = numbers.stream().anyMatch(n -> n < 0);
+
+            if (hasNegativeNumbers) throw new RuntimeException("negatives not allowed");
+
             return addIntegers(numbers);
         } else {
             return 0;

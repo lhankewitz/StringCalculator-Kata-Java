@@ -38,15 +38,6 @@ public class AddNumbersTest {
         assertThat(stringCalculator.addIntegers("1,2,3,4,5,6,7,8,9,10"), is(55));
     }
 
-    @Test
-    public void addingNumber_includingNegariveNumbers_returnSum() {
-        assertThat(stringCalculator.addIntegers("-1"), is(-1));
-    }
-
-    @Test
-    public void addingNumbers_includingSeveralNegativeNumbers_returnSum() {
-        assertThat(stringCalculator.addIntegers("1,-1,2,-1"), is(1));
-    }
 
     @Test
     public void addNumber_withNewlineSeparator_returnsSum() {
@@ -59,7 +50,6 @@ public class AddNumbersTest {
     }
 
     @Test
-    @Ignore("Overlooked failing test")
     public void addNumbers_WithNegativeNumber_throwsException() {
         final String result;
         try {
