@@ -14,15 +14,15 @@ public class StringCalculator {
         String numberStringWithoutPrefix = getNumberStringWithoutPrefix(numbersAsString, delimiter);
 
         if (matchNumber(numberStringWithoutPrefix, delimiter.orElseGet(() -> DEFAULT_DELIMITER))) {
-            List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiter);
+            List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiter, delimiter.orElseGet(() -> DEFAULT_DELIMITER));
             return addIntegers(numbers);
         } else {
             return 0;
         }
     }
 
-    private List<Integer> extractNumbers(String numberStringWithoutPrefix, final Optional<String> delimiter) {
-        numberStringWithoutPrefix = normalizeDelimiter(numberStringWithoutPrefix, delimiter.get());
+    private List<Integer> extractNumbers(String numberStringWithoutPrefix, final Optional<String> delimiterOld, final String s) {
+        numberStringWithoutPrefix = normalizeDelimiter(numberStringWithoutPrefix, s);
         return parseToIntegers(numberStringWithoutPrefix);
     }
 
