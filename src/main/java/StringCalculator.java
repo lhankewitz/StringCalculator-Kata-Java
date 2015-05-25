@@ -20,7 +20,8 @@ public class StringCalculator {
 
             validateNotNegativeNumbers(numbers);
 
-            return addIntegers(numbers);
+            Integer integer = addIntegers(numbers);
+            return integer % 1000;
         } else {
             return 0;
         }

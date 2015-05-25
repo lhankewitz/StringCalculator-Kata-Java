@@ -86,4 +86,11 @@ public class AddNumbersTest {
         }
     }
 
+
+    @Test
+    public void addNumbers_withSumLargerThan1000_ignores1000() {
+        final int sum = stringCalculator.addIntegers("2;1000");
+        assertThat(sum, is(2));
+    }
+
 }
