@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class StringCalculator {
     private static final int DELIMITER_ANNOTATION_LENGTH = 4;
@@ -17,11 +19,14 @@ public class StringCalculator {
         if (matchNumber(numberStringWithoutPrefix, delimiterString)) {
             List<Integer> numbers = extractNumbers(numberStringWithoutPrefix, delimiterString);
 
-            boolean hasNegativeNumbers = numbers.stream().anyMatch(n -> n < 0);
+
+            int[] negativeNumbers = numbers.stream().filter(n -> n < 0).mapToInt(n -> n).toArray();
+
+            boolean hasNegativeNumbers = negativeNumbers.length > 0;
 
             if (hasNegativeNumbers) {
                 String message = "negatives not allowed";
-                if(numbers.contains(-1)) message += message + ", -1";
+                message += message + Arrays.toString(negativeNumbers);
                 throw new RuntimeException(message);
             }
 
