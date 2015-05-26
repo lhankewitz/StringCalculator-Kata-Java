@@ -101,9 +101,11 @@ public class AddNumbersTest {
     }
 
     @Test
-    @Ignore("refactor delimiter match first")
+    //@Ignore("refactor delimiter match first")
     public void addIntegers_withMultipleDelimiters_returnsSum() {
-        final int result = stringCalculator.addIntegers("//[*][%]\n1*2%3");
-        assertThat(result, is(6));
+        assertThat(stringCalculator.addIntegers("//[*][%]\n1*2%3"), is(6));
+        assertThat(stringCalculator.addIntegers("//[*][~]\n1*2~3"), is(6));
     }
+
+
 }
