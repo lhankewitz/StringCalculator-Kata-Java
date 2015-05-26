@@ -67,11 +67,12 @@ public class StringCalculator {
     }
 
     private Optional<String> getDelimiter(final String numbersAsString) {
-        final Pattern delimiterDefinitionPattern = Pattern.compile("//\\[(.*)\\]\\n.*");
+        final Pattern delimiterDefinitionPattern = Pattern.compile("//(\\[.*\\])\\n.*");
         final Matcher matcher = delimiterDefinitionPattern.matcher(numbersAsString);
         String delimiter = null;
         if (matcher.matches()) {
-            delimiter = matcher.group(1);
+            String delimiterGroup = matcher.group(1);
+            delimiter = delimiterGroup.replace("[", "").replace("]", "");
         }
         return Optional.ofNullable(delimiter);
     }
