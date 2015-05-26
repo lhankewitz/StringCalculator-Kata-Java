@@ -16,7 +16,7 @@ public class StringCalculator {
 
             return addIntegers(numbers);
         } else {
-            return 0;
+            return 0; // empty string or not parsable number
         }
     }
 
