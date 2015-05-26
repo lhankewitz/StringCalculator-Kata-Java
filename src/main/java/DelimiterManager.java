@@ -61,16 +61,12 @@ public class DelimiterManager {
         StringBuilder delimitersRegExpBuilder = new StringBuilder("(");
         for (int i = 0; i < delimiters.length; i++) {
             if (i > 0) delimitersRegExpBuilder.append('|');
-            delimitersRegExpBuilder.append(escapeRegExpCharacter(delimiters[i]));
+            delimitersRegExpBuilder.append(Pattern.quote(delimiters[i]));
         }
         delimitersRegExpBuilder.append("|[," + DEFAULT_DELIMITER + "\n]");
         delimitersRegExpBuilder.append(')');
 
         return delimitersRegExpBuilder.toString();
-    }
-
-    private String escapeRegExpCharacter(final String delimiter) {
-        return delimiter.replace("*", "\\*").replace("-", "\\-").replace(".", "\\.");
     }
 
 
