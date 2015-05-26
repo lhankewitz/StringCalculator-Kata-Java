@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
-    private static final int DELIMITER_ANNOTATION_LENGTH = 4;
+    private static final int NUM_OF_DELIMITER_ANNOTATION_META_CHARACTER = 5;
     private static final String DEFAULT_DELIMITER = ";";
     private static final int SINGLE_NUMBER_LIMIT = 1000;
 
@@ -47,15 +47,15 @@ public class StringCalculator {
     private String getNumberStringWithoutPrefix(final String numbersAsString, final Optional<String> delimiter) {
         String numberStringWithoutPrefix;
         if (delimiter.isPresent()) {
-            numberStringWithoutPrefix = removeDelimiterAnnotation(numbersAsString);
+            numberStringWithoutPrefix = removeDelimiterAnnotation(numbersAsString, delimiter.get().length());
         } else {
             numberStringWithoutPrefix = numbersAsString;
         }
         return numberStringWithoutPrefix;
     }
 
-    private String removeDelimiterAnnotation(final String numbersAsString) {
-        return numbersAsString.substring(DELIMITER_ANNOTATION_LENGTH);
+    private String removeDelimiterAnnotation(final String numbersAsString, final int delimiterLength) {
+        return numbersAsString.substring(delimiterLength + NUM_OF_DELIMITER_ANNOTATION_META_CHARACTER);
     }
 
     private String normalizeDelimiter(final String numbersAsString, final String delimiter) {
@@ -67,7 +67,7 @@ public class StringCalculator {
     }
 
     private Optional<String> getDelimiter(final String numbersAsString) {
-        final Pattern delimiterDefinitionPattern = Pattern.compile("//(.)\\n.*");
+        final Pattern delimiterDefinitionPattern = Pattern.compile("//\\[(.*)\\]\\n.*");
         final Matcher matcher = delimiterDefinitionPattern.matcher(numbersAsString);
         String delimiter = null;
         if (matcher.matches()) {
@@ -77,8 +77,9 @@ public class StringCalculator {
     }
 
     private boolean matchNumber(final String numbersAsString, final String delimiter) {
-        String delimiters = delimiter + DEFAULT_DELIMITER + ",\\n";
-        return numbersAsString.matches("\\-?\\d+([" + delimiters + "]\\-?\\d+)*");
+        String delimiters = delimiter.replace("*", "\\*");
+        String regex = "\\-?\\d+((" + delimiters + "|[," + DEFAULT_DELIMITER + "\\n])\\-?\\d+)*";
+        return numbersAsString.matches(regex);
     }
 
     private List<Integer> parseToIntegers(final String numbersAsString) {

@@ -46,7 +46,7 @@ public class AddNumbersTest {
 
     @Test
     public void addNumbers_acceptsDelimiterAnnotation() {
-        assertThat(stringCalculator.addIntegers("//;\n1;2"), is(3));
+        assertThat(stringCalculator.addIntegers("//[;]\n1;2"), is(3));
     }
 
     @Test
@@ -93,4 +93,10 @@ public class AddNumbersTest {
         assertThat(sum, is(2));
     }
 
+
+    @Test
+    public void addIntegers_with2CharLengthDelimiter_returnsSum() {
+        final int result = stringCalculator.addIntegers("//[***]\n1***2***3");
+        assertThat(result, is(6));
+    }
 }
