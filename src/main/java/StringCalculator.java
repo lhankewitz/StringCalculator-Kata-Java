@@ -76,10 +76,14 @@ public class StringCalculator {
         return Optional.ofNullable(delimiter);
     }
 
-    private boolean matchNumber(final String numbersAsString, final String delimiter) {
-        String delimiters = delimiter.replace("*", "\\*");
-        String regex = "\\-?\\d+((" + delimiters + "|[," + DEFAULT_DELIMITER + "\\n])\\-?\\d+)*";
+    private boolean matchNumber(final String numbersAsString, final String inputDelimiter) {
+        String delimiter = escapeRegExpCharacter(inputDelimiter);
+        String regex = "\\-?\\d+((" + delimiter + "|[," + DEFAULT_DELIMITER + "\\n])\\-?\\d+)*";
         return numbersAsString.matches(regex);
+    }
+
+    private String escapeRegExpCharacter(final String delimiter) {
+        return delimiter.replace("*", "\\*").replace("-", "\\-").replace(".", "\\.");
     }
 
     private List<Integer> parseToIntegers(final String numbersAsString) {
